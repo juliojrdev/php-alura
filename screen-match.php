@@ -6,11 +6,23 @@ $nomeFilme = "Top Gun - Maverick"; //string
 $anoLancamento = 2022; //integer number
 
 $qtdNotas = $argc - 1;
-$somaNotas = 0;
+$notas = [];
 
-/*for ($i = 1; $i < $argc; $i++){
-    $somaNotas += $argv[$i];
+for ($i = 1; $i < $argc; $i++){
+    $notas[] = floatval($argv[$i]);
+}
+
+/*
+$notaFilme = 0;
+for ($i = 0; $i < count($notas); $i++) {
+    $somaNotas += $notas[$i];
 }*/
+
+/*foreach ($notas as $nota) {
+    $somaNotas += $nota;
+}*/
+
+var_dump($notas);
 
 /*$i = 1;
 while ($i < $argc) {
@@ -18,16 +30,16 @@ while ($i < $argc) {
     $i ++;
 }*/
 
-$i = $argc;
+/*$i = $argc;
 do {
     $somaNotas += $argv[$i];
     $i--;
-} while ($i > 0);
+} while ($i > 0);*/
 
-$notaFilme = $somaNotas / $qtdNotas; 
-$planoPrime = true; //boolean
+$notaFilme = array_sum($notas) / $qtdNotas; 
+//$planoPrime = true; //boolean
 
-$incluidoNoPlano = $planoPrime || $anoLancamento < 2020;
+//$incluidoNoPlano = $planoPrime || $anoLancamento < 2020;
 
-echo "Nome do filme: $nomeFilme \n";
-echo "Nota do filme: $notaFilme";
+//echo "Nome do filme: $nomeFilme \n";
+echo "\n \n Nota do filme: $notaFilme";
