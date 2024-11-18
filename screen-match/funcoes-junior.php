@@ -1,8 +1,4 @@
 <?php
-/*
-Desenvolvido por Julio C. S. Junior - Nov. 2024
-Algoritmo desenvolvido para exercício prático do curso de PHP Orientado a Objeto da plataforma Alura ministrado pelo Prof. Vinicius Dias
-*/
 
 function inicioESaudacao(){    
     echo " ####################################### \n";
@@ -11,20 +7,6 @@ function inicioESaudacao(){
     echo " ##### LISTA DE FILMES DISPONÍVEIS ##### \n";
     echo " ####################################### \n \n";
 }
-
-$listaDeFilmes = [[    
-    "nomeFilme" => "Top Gun - Maverick",
-    "anoLancamento" => 2022,
-    "notasAvaliacoes" => [10, 8, 9, 8, 7],
-    "planoPrime" => false,
-    "genero" => "ação",
-],[    
-    "nomeFilme" => "Thor - Ragnarok",
-    "anoLancamento" => 2023,
-    "notasAvaliacoes" => [9, 8, 10, 9, 6, 10],
-    "planoPrime" => true,
-    "genero" => "super-herois",
-]];
 
 function adicionarFilmesNaLista(&$catalogo, $novoFilme) { 
     //o & dá mpermissão para que função altere o array original
@@ -61,29 +43,35 @@ function exibitCatalogoDeFilmes($lista){
     }
 }
 
-// adicionado + 1 filme no catalogo...
-$dadosNovoFilme = [
-    "nomeFilme" => "Velozes e Furiosos - Desafio em Tokyo",
-    "anoLancamento" => 2018,
-    "notasAvaliacoes" => [10, 9, 9, 10, 10, 10, 9, 8],
-    "planoPrime" => false,
-    "genero" => "corridas e ficção científica",
-];
+function extraiInicialNomeFilme($nomeFilme){
+    $posicao = strpos($nomeFilme, '-');
+    $nomeCurto = substr($nomeFilme, 0, $posicao-1);
+    return $nomeCurto;
+}
 
-adicionarFilmesNaLista($listaDeFilmes, $dadosNovoFilme);
+function menorAvaliacao($lista){
+    $menorNota = 0;
+    $nomeFilme = "";
+    for($i = 0; $i < count($lista); $i++){
+        $filme = $lista[$i];
+        $mediaNota = floatval(calculoMediaNotaAvaliacao($filme["notasAvaliacoes"], count($filme["notasAvaliacoes"])));
+        if($menorNota == 0){
+            $menorNota = $mediaNota;
+            $nomeFilme = extraiInicialNomeFilme($filme["nomeFilme"]);
+        } elseif ($mediaNota < $menorNota){
+            $menorNota = $mediaNota;
+            $nomeFilme = extraiInicialNomeFilme($filme["nomeFilme"]);
+        }
+    }
 
+    return "\n$nomeFilme é o filme com menor avaliação, que foi $menorNota.\n";
+}
 
-// adicionado + 1 filme no catalogo...
-$dadosNovoFilme = [
-    "nomeFilme" => "Homem Aranha - Nunca bate só apanha",
-    "anoLancamento" => 2024,
-    "notasAvaliacoes" => [10, 7, 9, 10, 6, 10, 9, 8],
-    "planoPrime" => true,
-    "genero" => "herois e ficção científica",
-];
-
-adicionarFilmesNaLista($listaDeFilmes, $dadosNovoFilme);
-
-inicioESaudacao();
-// exisbe catalogo d efilmes
-exibitCatalogoDeFilmes($listaDeFilmes);
+function criarNomeArquivosJsonFilmes($nomeFilme){
+    $partesNome = explode(" ", $nomeFilme);
+    $juntaPartesNome = "";
+    for($p = 0; $p < count($partesNome); $p++) {
+        $juntaPartesNome .=  $partesNome[$p]; //concatena as variaveis tipo string
+    }
+    return $juntaPartesNome;
+}

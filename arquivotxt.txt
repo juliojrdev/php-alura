@@ -1,0 +1,9 @@
+Mensagem para Salvar no Arquivo .txt:
+
+Arquivo criado por Julio C. S. Junior para o Curso PHP Alura - 2024-11-18 23:06:07
+
+
+Agora o arquivo foi alterado - 2024-11-18 23:06:08
+
+
+Reamente, PHP é incrível!
